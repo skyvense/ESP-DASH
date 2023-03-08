@@ -270,6 +270,20 @@ size_t ESPDash::generateLayoutJSON(AsyncWebSocketClient *client, bool changes_on
     signal["k"] = "WiFi Signal";
     signal["v"] = WiFi.RSSI();
     serializeJson(signal, buf);
+    buf += ",";
+
+    // WiFi SSID
+    StaticJsonDocument<64> ssid;
+    ssid["k"] = "WiFi SSID";
+    ssid["v"] = WiFi.SSID();
+    serializeJson(ssid, buf);
+    buf += ",";
+
+    // WiFi IP
+    StaticJsonDocument<64> ip;
+    ip["k"] = "WiFi IP Address";
+    ip["v"] = WiFi.localIP().toString();
+    serializeJson(ip, buf);
   }
 
   // Loop through user defined stats
